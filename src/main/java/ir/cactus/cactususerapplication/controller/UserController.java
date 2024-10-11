@@ -2,6 +2,7 @@ package ir.cactus.cactususerapplication.controller;
 
 import ir.cactus.cactususerapplication.model.User;
 import ir.cactus.cactususerapplication.repository.UserRepository;
+import ir.cactus.cactususerapplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
 
     @GetMapping("/helloUser/{user}")
@@ -23,12 +24,12 @@ public class UserController {
 
     @PostMapping("/createUser")
     public String createUser(@RequestBody User user) {
-        userRepository.save(user);
+        userService.save(user);
         return "success";
     }
 
     @GetMapping("/getAllUsers")
     public ResponseEntity<List<User>>getAllUsers(){
-        return ResponseEntity.ok(userRepository.findAll());
+        return ResponseEntity.ok(userService.findAll());
     }
 }
